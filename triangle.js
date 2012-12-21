@@ -5,9 +5,11 @@ var s =  Math.min(height, width); 	//triangle side length
 var sin30 = Math.pow(3,1/2)/2;
 var cos30 = .5;
 
+var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+
 function addTriangle(cx, cy, r){
 	var tri = vis.append('polygon')
-		.on("mouseover", function(d){
+		.on(mobile ? "click" : "mouseover", function(d){
 			addTriangle(	cx,				cy - r/2, 		r/2);			
 			addTriangle(	cx - r*sin30/2,	cy + r*cos30/2, r/2);			
 			addTriangle(	cx + r*sin30/2,	cy + r*cos30/2, r/2);
@@ -28,6 +30,7 @@ function addTriangle(cx, cy, r){
 							(cx-r*sin30) 	+','+ 	(cy + r*cos30)	+' '+
 							(cx+r*sin30) 	+','+ 	(cy + r*cos30))
 }
+
 
 //adds svg & g elements to page so zooming will work
 var vis = d3.select("#chart")
