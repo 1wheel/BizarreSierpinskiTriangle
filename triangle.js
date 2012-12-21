@@ -7,8 +7,9 @@ var cos30 = .5;
 
 var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
 
+//triangle centered at (cx, cy) with circumradius r
 function addTriangle(cx, cy, r){
-	var tri = vis.append('polygon')
+	svg.append('polygon')
 		.on(mobile ? "click" : "mouseover", function(d){
 			addTriangle(	cx,				cy - r/2, 		r/2);			
 			addTriangle(	cx - r*sin30/2,	cy + r*cos30/2, r/2);			
@@ -33,7 +34,7 @@ function addTriangle(cx, cy, r){
 
 
 //adds svg & g elements to page so zooming will work
-var vis = d3.select("#chart")
+var svg = d3.select("#chart")
   .append("svg:svg")
     .attr("width", width)
     .attr("height", height)
@@ -42,17 +43,17 @@ var vis = d3.select("#chart")
     .call(d3.behavior.zoom().on("zoom", redraw))
   .append('svg:g');
 
-vis.append('svg:rect')
+svg.append('svg:rect')
     .attr('width', s)
     .attr('height', s)
     .attr('fill', 'white');
 
 function redraw() {
   console.log("here", d3.event.translate, d3.event.scale);
-  vis.attr("transform",
+  svg.attr("transform",
       "translate(" + d3.event.translate + ")"
       + " scale(" + d3.event.scale + ")");
 }
 
-//creates first triangle
+//add the first triangle
 addTriangle(width/2, height*2/3, s*2/3)
