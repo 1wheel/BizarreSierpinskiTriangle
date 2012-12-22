@@ -44,8 +44,8 @@ var svg = d3.select("#chart")
   .append('svg:g');
 
 svg.append('svg:rect')
-    .attr('width', s)
-    .attr('height', s)
+    .attr('width', width)
+    .attr('height', height)
     .attr('fill', 'white');
 
 function redraw() {
